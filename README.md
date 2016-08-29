@@ -7,7 +7,7 @@ Users are shown two episodes of a tv show, and choose which one is better (or a 
 
 **Why is this better than the 1-10 ratings on IMDB?**
 
-It's better than traditional 1-10 (or 1-5) ratings for a few reasons, but in essence it's better because people are inconsistent with explicit, 1-10 ratings. The system used in this software, which asks for a qualitative "Is episode X better than episode Y) and implicitly creates a quantitative ranking is easier for humans to accurately and consistently respond to than software that asks for a quantitative, "How close numerically is this episode to the perfect TV episode?" (which is what a 1-10 system is essentially askign you to do. 
+It's better than traditional 1-10 (or 1-5) ratings for a few reasons, but in essence it's better because people are inconsistent with explicit, 1-10 ratings. The system used in this software, which asks for a qualitative "Is episode X better than episode Y) and implicitly creates a quantitative ranking is easier for humans to accurately and consistently respond to than software that asks for a quantitative, "How close numerically is this episode to the perfect TV episode?" (which is what a 1-10 system is essentially asking you to do). 
 
 Here are a few issues with 1-10 ratings:
 
