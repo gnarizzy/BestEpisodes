@@ -17,4 +17,4 @@ Here are a few issues with 1-10 ratings:
 
 * Ratings can fluctuate based on mood, recent experiences, etc. since they are based on changing expectations. The result of comparing two episodes head-to-head is an objective measure. Your criteria may be subjective, but the conclusion you come to based on that criteria is objective--episode X is better than episode Y. And unless your criteria changes (not common for TV episodes), that's an objective "truth".  
 
-TODO: Simplify readme text!
+**TODO: Simplify readme text!**
