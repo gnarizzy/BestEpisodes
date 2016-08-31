@@ -7,4 +7,5 @@ class Episode(models.Model):
     title = models.TextField(default="")
     plot = models.TextField(default="")
     image = models.URLField(default="")
+    rating = models.DecimalField(decimal_places=1, max_digits=5, default=1000)
 
