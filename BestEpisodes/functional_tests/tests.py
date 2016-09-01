@@ -6,6 +6,7 @@ import os
 class NewVisitorTest(StaticLiveServerTestCase):
 
     def setUp(self):
+        browser = webdriver.Chrome()
         self.browser.implicitly_wait(3)
 
     def tearDown(self):
@@ -37,3 +38,5 @@ class NewVisitorTest(StaticLiveServerTestCase):
 #He eventually clicks "top episodes" to see the best episodes. They are rated in descending order.
 
 #Satisfied, he leaves the site to pay a visit to Lard Lad Donuts.
+
+#test CSS loads
