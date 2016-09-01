@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Episode(models.Model):
     imdb_id = models.TextField()
     series = models.TextField()
