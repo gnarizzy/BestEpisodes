@@ -8,7 +8,8 @@ class Episode(models.Model):
     episode = models.IntegerField(default=0)
     title = models.TextField()
     plot = models.TextField()
-    image = models.URLField()
+    image_src = models.URLField()
+    image = models.ImageField()
     rating = models.DecimalField(decimal_places=1, max_digits=5, default=1000)
 
     def __str__(self):
