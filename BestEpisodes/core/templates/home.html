@@ -7,13 +7,16 @@
             <div class = "card-image">
                 <img src="{{first_episode.image}}">
                 <span class = "card-title">
-                    {{first_episode.title}} S{{first_episode.season}}E{{first_episode.episode}}
+                    {{first_episode.title}}
                 </span>
             </div>
             <div class = "card-content">
                 <p>
+                    <strong>S{{first_episode.season}}E{{first_episode.episode}}</strong>
+                    <br>
                     {{first_episode.plot}}
-                    Rating: {{first_episode.rating}}
+                    <br>
+                   <strong>Rating</strong>: {{first_episode.rating}}
                 </p>
             </div>
         </div>
@@ -23,13 +26,16 @@
             <div class = "card-image">
                 <img src="{{second_episode.image}}">
                 <span class = "card-title">
-                    {{second_episode.title}} S{{second_episode.season}}E{{second_episode.episode}}
+                    {{second_episode.title}}
                 </span>
             </div>
             <div class = "card-content">
                 <p>
+                    <strong>S{{second_episode.season}}E{{second_episode.episode}}</strong>
+                    <br>
                     {{second_episode.plot}}
-                    Rating: {{second_episode.rating}}
+                    <br>
+                    <strong>Rating</strong>: {{second_episode.rating}}
                 </p>
             </div>
         </div>
