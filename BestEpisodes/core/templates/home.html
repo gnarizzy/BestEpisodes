@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Rate The Simpsons</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block body_block %}
 {{first_episode.title}} S{{first_episode.season}}E{{first_episode.episode}}
 <br>
 <img src="{{first_episode.image}}">
@@ -21,4 +17,5 @@ Rating: {{first_episode.rating}}
 <br>
 Rating: {{second_episode.rating}}
 </body>
-</html>
+
+{% endblock %}
