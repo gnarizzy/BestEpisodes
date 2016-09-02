@@ -50,6 +50,10 @@ class HomePageTest(TestCase):
 
 #Test that ratings aren't updated if user selects pass
 
+#Test that redirect occurs after submission
+
+#Test that previous selection confirmation appears after redirect
+
 
 
 
