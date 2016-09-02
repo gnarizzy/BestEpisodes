@@ -1,21 +1,39 @@
 {% extends 'base.html' %}
 
 {% block body_block %}
-{{first_episode.title}} S{{first_episode.season}}E{{first_episode.episode}}
-<br>
-<img src="{{first_episode.image}}">
-<br>
-{{first_episode.plot}}
-<br>
-Rating: {{first_episode.rating}}
-<br><br>
-{{second_episode.title}} S{{second_episode.season}}E{{second_episode.episode}}
-<br>
-<img src="{{second_episode.image}}">
-<br>
-{{second_episode.plot}}
-<br>
-Rating: {{second_episode.rating}}
-</body>
+<div class = "row">
+    <div class = "col sm12 m3">
+        <div class = "card ">
+            <div class = "card-image">
+                <img src="{{first_episode.image}}">
+                <span class = "card-title">
+                    {{first_episode.title}} S{{first_episode.season}}E{{first_episode.episode}}
+                </span>
+            </div>
+            <div class = "card-content">
+                <p>
+                    {{first_episode.plot}}
+                    Rating: {{first_episode.rating}}
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class = "col sm12 m3">
+        <div class = "card ">
+            <div class = "card-image">
+                <img src="{{second_episode.image}}">
+                <span class = "card-title">
+                    {{second_episode.title}} S{{second_episode.season}}E{{second_episode.episode}}
+                </span>
+            </div>
+            <div class = "card-content">
+                <p>
+                    {{second_episode.plot}}
+                    Rating: {{second_episode.rating}}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
