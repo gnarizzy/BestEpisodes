@@ -1,9 +1,26 @@
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
 from core.models import Episode
 import random
 
 # Shows two unique, randomly selected episodes with screenshot, title, and description
 def home(request):
+
+    #User made a selection
+    if request.method == 'POST':
+        print ('POST!')
+        if "episode-1-selected" in request.POST:
+            print("episode 1 is the winner")
+            return HttpResponseRedirect('/episode1')
+
+        elif "episode-2-selected" in request.POST:
+            print("episode 2 is the winner")
+            return HttpResponseRedirect('/episode2')
+        elif "draw" in request.POST:
+            print("It's a draw")
+            return HttpResponseRedirect('/draw')
+
+    #skipped, redirected, or coming to home page
     episodeid_1, episodeid_2 = get_episodes()
     first_episode = Episode.objects.all()[episodeid_1]
     second_episode = Episode.objects.all()[episodeid_2]
