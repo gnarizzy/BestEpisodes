@@ -2,8 +2,8 @@
 
 {% block body_block %}
 
-    <div class = "container">
-        <h1>Which episode is better?</h1>
+<div class = "container">
+    <h1>Which episode is better?</h1>
 
     <div class = "row">
         <div class = "col sm12 m4">
@@ -21,8 +21,8 @@
                         <br>
                        <strong>Rating</strong>: {{first_episode.rating}}
                         <br>
-                        <form  action="/">
-                            <button class="btn waves-effect waves-dark green" id="episode-1-selected" type="submit" name="action">S{{first_episode.season}}
+                        <form  action="/" method="post">{% csrf_token %}
+                            <button class="btn waves-effect waves-dark green"  type="submit" name="episode-1-selected">S{{first_episode.season}}
                                 E{{first_episode.episode}}
                                 <i class="material-icons right">thumb_up</i>
                             </button>
@@ -47,9 +47,10 @@
                         <br>
                         <strong>Rating</strong>: {{second_episode.rating}}
                         <br>
-                        <form  action="/">
-                            <button class="btn waves-effect waves-dark green" id="episode-2-selected" type="submit"
-                                    name="action">S{{second_episode.season}}
+
+                        <form  action="/" method="post">{% csrf_token %}
+                            <button class="btn waves-effect waves-dark green" type="submit"
+                                    name="episode-2-selected">S{{second_episode.season}}
                                 E{{second_episode.episode}}
                                 <i class="material-icons right">thumb_up</i>
                             </button>
@@ -58,6 +59,19 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class = "row">
+        <form  action="/" method="post">{% csrf_token %}
+            <button class="btn waves-effect waves-dark blue" type="submit" name="draw">Tie
+                                <i class="material-icons right">thumb_up_thumb_down</i>
+            </button>
+        </form>
+    </div>
+    <div class = "row">
+        <a href="/" class="btn waves-effect waves-dark blue" id="skip" type="submit"
+                                    name="action">Skip
+                                <i class="material-icons right">navigate_next</i>
+                            </a>
     </div>
 <div>
 
