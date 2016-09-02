@@ -1,43 +1,65 @@
 {% extends 'base.html' %}
 
 {% block body_block %}
-<div class = "row">
-    <div class = "col sm12 m3">
-        <div class = "card ">
-            <div class = "card-image">
-                <img src="{{first_episode.image}}">
+
+    <div class = "container">
+        <h1>Which episode is better?</h1>
+
+    <div class = "row">
+        <div class = "col sm12 m4">
+            <div class = "card ">
+                <div class = "card-image">
+                    <img src="{{first_episode.image}}">
+                </div>
+                <div class = "card-content">
+                    <p>
+                        <strong>S{{first_episode.season}}E{{first_episode.episode}}: {{first_episode.title}}</strong>
+                        <br>
+                        <br>
+                        {{first_episode.plot}}
+                        <br>
+                        <br>
+                       <strong>Rating</strong>: {{first_episode.rating}}
+                        <br>
+                        <form  action="/">
+                            <button class="btn waves-effect waves-dark green" id="episode-1-selected" type="submit" name="action">S{{first_episode.season}}
+                                E{{first_episode.episode}}
+                                <i class="material-icons right">thumb_up</i>
+                            </button>
+                        </form>
+                    </p>
+                </div>
+
             </div>
-            <div class = "card-content">
-                <p>
-                    <strong>S{{first_episode.season}}E{{first_episode.episode}}: {{first_episode.title}}</strong>
-                    <br>
-                    <br>
-                    {{first_episode.plot}}
-                    <br>
-                    <br>
-                   <strong>Rating</strong>: {{first_episode.rating}}
-                </p>
+        </div>
+        <div class = "col sm12 m4">
+            <div class = "card ">
+                <div class = "card-image">
+                    <img src="{{second_episode.image}}">
+                </div>
+                <div class = "card-content">
+                    <p>
+                        <strong>S{{second_episode.season}}E{{second_episode.episode}}: {{second_episode.title}}</strong>
+                        <br>
+                        <br>
+                        {{second_episode.plot}}
+                        <br>
+                        <br>
+                        <strong>Rating</strong>: {{second_episode.rating}}
+                        <br>
+                        <form  action="/">
+                            <button class="btn waves-effect waves-dark green" id="episode-2-selected" type="submit"
+                                    name="action">S{{second_episode.season}}
+                                E{{second_episode.episode}}
+                                <i class="material-icons right">thumb_up</i>
+                            </button>
+                        </form>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
-    <div class = "col sm12 m3">
-        <div class = "card ">
-            <div class = "card-image">
-                <img src="{{second_episode.image}}">
-            </div>
-            <div class = "card-content">
-                <p>
-                    <strong>S{{second_episode.season}}E{{second_episode.episode}}: {{second_episode.title}}</strong>
-                    <br>
-                    <br>
-                    {{second_episode.plot}}
-                    <br>
-                    <br>
-                    <strong>Rating</strong>: {{second_episode.rating}}
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
+<div>
+
 
 {% endblock %}
