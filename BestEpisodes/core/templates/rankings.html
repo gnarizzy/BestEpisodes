@@ -1,11 +1,23 @@
 {% extends 'base.html' %}
 {%block title_block%} The Simpsons Episode Rankings {% endblock %}
 {%block body_block%}
-    <ol>
-        {% for episode in episodes_list %}
-        <li>
-            S{{episode.season}}E{{episode.episode}}: {{episode.title}} Rating: <strong>{{episode.rating}}</strong>
-        </li>
-        {% endfor %}
-    </ol>
+    <table class="striped centered">
+        <thead>
+            <tr>
+                <th data-field="id">Episode</th>
+                <th data-field="name">Title</th>
+                <th data-field="rating">Rating</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for episode in episodes_list %}
+            <tr>
+                <td>S{{episode.season}}E{{episode.episode}}</td>
+                <td>{{episode.title}}</td>
+                <td>{{episode.rating}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
 {% endblock %}
