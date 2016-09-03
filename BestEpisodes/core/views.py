@@ -49,6 +49,11 @@ def home(request):
 
     return render(request, 'home.html', context)
 
+def rankings(request):
+    episodes = Episode.objects.all().order_by('-rating')
+    context = {'episodes_list': episodes}
+    return render(request, 'rankings.html', context)
+
 #Helper method to generate random episode IDs
 def get_episodes():
     total_episodes = Episode.objects.all().count()
