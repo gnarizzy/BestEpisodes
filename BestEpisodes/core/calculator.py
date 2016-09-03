@@ -1,6 +1,6 @@
 import math
 K_VALUE = 32
-
+from decimal import Decimal
 #calculates elo changes
 #could also just return the negative rating change for rating2, but calculating it seems more precise if k-values aren't
 #fixed for both players
@@ -16,8 +16,9 @@ def calculate(rating1, rating2, result):
 #splits up calculation into multiple variables for clarity
 def expected_score(rating1, rating2):
     difference = rating2 - rating1
-    exponent = difference/400
-    denonimator = 1 + math.pow(10, exponent)
-    return 1/denonimator
+    exponent = Decimal(difference/400)
+    denonimator = Decimal(1 + math.pow(10, exponent))
+    return Decimal(1/denonimator)
 
 #TODO add tests
+
