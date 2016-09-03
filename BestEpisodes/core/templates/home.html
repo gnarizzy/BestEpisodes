@@ -22,10 +22,13 @@
                        <strong>Rating</strong>: {{first_episode.rating}}
                         <br>
                         <form  action="/" method="post">{% csrf_token %}
+                            <input type = "hidden" value="{{first_episode.title}}" name = "first_episode_title">
+                            <input type = "hidden" value="{{second_episode.title}}" name = "second_episode_title">
                             <button class="btn waves-effect waves-dark green"  type="submit" name="episode-1-selected">S{{first_episode.season}}
                                 E{{first_episode.episode}}
                                 <i class="material-icons right">thumb_up</i>
                             </button>
+
                         </form>
                     </p>
                 </div>
@@ -49,11 +52,14 @@
                         <br>
 
                         <form  action="/" method="post">{% csrf_token %}
+                            <input type = "hidden" value="{{first_episode.title}}" name = "first_episode_title">
+                            <input type = "hidden" value="{{second_episode.title}}" name = "second_episode_title">
                             <button class="btn waves-effect waves-dark green" type="submit"
                                     name="episode-2-selected">S{{second_episode.season}}
                                 E{{second_episode.episode}}
                                 <i class="material-icons right">thumb_up</i>
                             </button>
+
                         </form>
                     </p>
                 </div>
@@ -62,6 +68,8 @@
     </div>
     <div class = "row">
         <form  action="/" method="post">{% csrf_token %}
+            <input type = "hidden" value="{{first_episode.title}}" name = "first_episode_title">
+            <input type = "hidden" value="{{second_episode.title}}" name = "second_episode_title">
             <button class="btn waves-effect waves-dark blue" type="submit" name="draw">Tie
                                 <i class="material-icons right">thumb_up_thumb_down</i>
             </button>
