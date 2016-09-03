@@ -1,5 +1,68 @@
 {% extends 'base.html' %}
-
+{% block title_block%}About Rate The Simpsons{% endblock %}
 {% block body_block %}
-FAQ on how it works, why it's better than 1-10 ratings, where data is sourced from, and contact info
+    <div class = "container">
+        <h1>About Rate The Simpsons</h1>
+        <h4>
+            <strong>How does Rate The Simpsons work?</strong>
+        </h4>
+            <p>
+                You are shown two randomly selected episodes, and you choose the better one (or say they're equally good)
+                Behind the scenes, the site aggregates these selections and uses the <a href = "https://en.wikipedia.org
+                /wiki/Elo_rating_system" target="_blank">Elo rating system</a> to provide accurate episode rankings. It was originally
+                created (and modified versions are still used for) in the 1970s for ranking chess players, and is now used
+                in many games today.
+                <br>
+                Each time you make a choice, the Elo rating algorithm treats it as a "match" between those two episodes.
+                By aggregating the match results for every episode and calculating the resulting rating, it's possible to
+                produce a data-driven rankings list that not only tells you which episodes are the best, but also how much
+                better they are than any other given episode?
+            </p>
+            <h4>
+                <strong>Why is this better than the 1 through 10 ratings on IMDB?</strong>
+            </h4>
+            <p>
+                Primarily because when humans don't have a consistent internal rating system to use when they are asked
+                to give quantitative ratings. Imagine the best pizza place you've ever been to. Presumably, that pizza is
+                a 10/10. But what happens if tomorrow you come across an even better pizza place? Does the old pizzeria
+                drop to 9/10? And what if you were in a bad mood when you rated it, or had just eaten pizza the night
+                before and were kind of sick of pizza when you tried it, etc.? It's much easier to say, Pizzeria A is
+                better than Pizzeria B than it is to explicitly say Pizzeria A is a 9/10 and Pizzeria B is a 7.5/10.
+                <br>
+                We can create more accurate and constantly up-to-date rankings by using implicit qualitative preferences
+                that explicit quantitative (but actually more abritrary) ratings. And, the Elo algorithm allows us to
+                predict the exact probability that any episode will "defeat" any other episode!
+            </p>
+            <h4>
+                <strong> Where does the episode information come from?</strong>
+            </h4>
+            <p>
+                All the data was gathered from the <a href="http://www.omdbapi.com/" target="_blank">Open Movie Database
+            </a>.
+            </p>
+            <h4>
+                <strong> I found an error in the episode data!</strong>
+            </h4>
+            <p>
+                The Open Movie Database unfortunately doesn't always have correct information, and often doesn't have
+                episode screenshots or is even missing some information. If you notice an error or omission, please
+                email me at gautam[at]gautamnarula.com and I'll manually correct it!
+            </p>
+            <h4>
+            <strong>Can you do this for other shows?</strong>
+            </h4>
+            <p>
+                Yup, the code for this site can be reused for any other TV show. If you have any requests, feel free to
+                email me!
+            </p>
+            <h4>
+            <strong>Who made this?</strong>
+            </h4>
+            <p>
+                This site was lovingly developed by <a href="http://gautamnarula.com" target="_blank">Gautam Narula</a>
+                using locally grown, cruelty-free farm-to-table craft-brewed organic Python code.
+            </p>
+
+    </div>
+
 {% endblock %}
