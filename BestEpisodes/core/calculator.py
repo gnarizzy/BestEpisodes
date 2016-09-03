@@ -8,6 +8,7 @@ from decimal import Decimal
 
 
 def calculate(rating1, rating2, result):
+    result = Decimal(result)
     expected = expected_score(rating1, rating2)
     new_rating1 = rating1 + K_VALUE*(result - expected)
     new_rating2 = rating2 + K_VALUE*(expected - result)
