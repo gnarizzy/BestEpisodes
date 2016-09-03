@@ -4,6 +4,7 @@
     <table class="striped centered">
         <thead>
             <tr>
+                <th data-field="rank">Rank</th>
                 <th data-field="id">Episode</th>
                 <th data-field="name">Title</th>
                 <th data-field="rating">Rating</th>
@@ -12,6 +13,7 @@
         <tbody>
             {% for episode in episodes_list %}
             <tr>
+                <td>{{ forloop.counter }}</td>
                 <td>S{{episode.season}}E{{episode.episode}}</td>
                 <td>{{episode.title}}</td>
                 <td>{{episode.rating}}</td>
