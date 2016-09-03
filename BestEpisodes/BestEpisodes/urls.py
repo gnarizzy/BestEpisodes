@@ -19,5 +19,6 @@ from core import views as core_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', core_views.home, name='home')
+    url(r'^$', core_views.home, name='home'),
+    url(r'^rankings/', core_views.rankings, name='rankings'),
 ]
