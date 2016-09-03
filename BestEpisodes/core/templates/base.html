@@ -10,6 +10,15 @@
     {% block head_block%}{% endblock %}
 </head>
 <body>
+    <nav>
+        <div class="nav-wrapper deep-orange lighten-1">
+          <a href="/" class="brand-logo">Rate The Simpsons</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="/rankings">Episode Rankings<i class="material-icons left">view_list</i></a></li>
+            <li><a href="/about">About<i class="material-icons left">info</i></a></li>
+          </ul>
+        </div>
+      </nav>
 {% block body_block %}{% endblock %}
 </body>
 </html>
