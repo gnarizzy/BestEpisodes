@@ -54,6 +54,10 @@ class HomePageTest(TestCase):
 
 #Test that previous selection confirmation appears after redirect
 
+#Test for rankings
+
+#Test for episode detail page
+
 
 
 

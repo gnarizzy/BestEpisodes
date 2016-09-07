@@ -35,7 +35,10 @@ class NewVisitorTest(StaticLiveServerTestCase):
 
 #This time he chooses "skip" and two new episodes are presented.
 
-#He eventually clicks "top episodes" to see the best episodes. They are rated in descending order.
+#He eventually clicks "rankings" to see the best episodes. They are rated in descending order.
+
+#He selects an episode from the list to get more detailed information it. In addition to seeing the plot and a
+#screenshot, he also sees rating history and trends.
 
 #Satisfied, he leaves the site to pay a visit to Lard Lad Donuts.
 
