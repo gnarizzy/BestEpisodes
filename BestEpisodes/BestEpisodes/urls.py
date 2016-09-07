@@ -23,6 +23,6 @@ urlpatterns = [
     url(r'^$', core_views.home, name='home'),
     url(r'^rankings/$', core_views.rankings, name='rankings'),
     url(r'^about/$', TemplateView.as_view(template_name="about.html"),
-    url(r'^episode/(?P<listing_id>\d+)/$', core_views.episode_detail_no_slug, name='episode_detail_no_slug'),
-    url(r'^episode/(?P<listing_id>\d+)/$', core_views.episode_detail, name='episode_detail'),)
+    url(r'^episode/(?P<episode_id>\d+)/$', core_views.episode_detail_no_slug, name='episode_detail_no_slug'),
+    url(r'^episode/(?P<episode_id>\d+)/$', core_views.episode_detail, name='episode_detail'),)
 ]
