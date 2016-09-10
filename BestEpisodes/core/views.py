@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from core.models import Episode, Game
 from core.calculator import calculate
@@ -6,7 +6,8 @@ import random
 
 # Shows two unique, randomly selected episodes with screenshot, title, and description
 def home(request):
-
+    for episode in Episode.objects.all():
+        episode.save()
     #User made a selection
     if request.method == 'POST': #TODO not very DRY. refactor to get rid of repetitive code
         if "episode-1-selected" in request.POST:
@@ -53,6 +54,21 @@ def rankings(request):
     episodes = Episode.objects.all().order_by('-rating')
     context = {'episodes_list': episodes}
     return render(request, 'rankings.html', context)
+
+# URL with no slug, redirect to url with slug
+def episode_detail_no_slug(request, episode_id):
+    episode = get_object_or_404(Episode, pk=episode_id)
+    return HttpResponseRedirect('/episode/' + str(episode.id) + '/' + episode.slug)
+
+
+# Displays the requested listing along with info about listing item, or 404 page
+def episode_detail(request, episode_id, episode_slug):
+    episode = get_object_or_404(Episode, pk=episode_id)
+    if episode_slug != episode.slug: #Ensures episode always appears with correct slug
+        return HttpResponseRedirect('/episode/' + str(episode.id) + '/' + episode.slug)
+    context = {'episode': episode}
+    return render(request, 'episode_detail.html', context)
+
 
 #Helper method to generate random episode IDs
 def get_episodes():
