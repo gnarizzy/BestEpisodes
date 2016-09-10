@@ -25,6 +25,22 @@
 
             </div>
         </div>
+        <div class = "col sm12 m6">
+            <div class = "card ">
+                <div class = "card-content">
+                    <span class = "card-title">Rating History</span>
+                    <p>
+                        {% if games %}
+                            {% for game in games %}
+                                {{game}}
+                            {% endfor %}
+                        {% endif %}
+
+                    </p>
+                </div>
+
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
