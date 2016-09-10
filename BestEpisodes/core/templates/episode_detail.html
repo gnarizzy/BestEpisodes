@@ -1,5 +1,30 @@
 {% extends 'base.html' %}
 
 {% block body_block %}
-{{episode.season}} {{episode.title}}
+
+<div class = "container">
+    <div class = "row">
+        <div class = "col sm12 m4">
+            <div class = "card ">
+                <div class = "card-image">
+                    <img src="/static/images/S{{episode.season}}E{{episode.episode}}.jpg">
+                </div>
+                <div class = "card-content">
+                    <p>
+                        <strong>S{{episode.season}}E{{episode.episode}}: {{episode.title}}</strong>
+                        <br>
+                        <br>
+                        {{episode.plot}}
+                        <br>
+                        <br>
+                       <strong>Rating</strong>: {{episode.rating}}
+                        <br>
+
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
