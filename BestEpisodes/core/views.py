@@ -2,12 +2,12 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 from core.models import Episode, Game
 from core.calculator import calculate
+from django.db.models import Q
+from django.core.exceptions import ObjectDoesNotExist
 import random
 
 # Shows two unique, randomly selected episodes with screenshot, title, and description
 def home(request):
-    for episode in Episode.objects.all():
-        episode.save()
     #User made a selection
     if request.method == 'POST': #TODO not very DRY. refactor to get rid of repetitive code
         if "episode-1-selected" in request.POST:
@@ -66,7 +66,11 @@ def episode_detail(request, episode_id, episode_slug):
     episode = get_object_or_404(Episode, pk=episode_id)
     if episode_slug != episode.slug: #Ensures episode always appears with correct slug
         return HttpResponseRedirect('/episode/' + str(episode.id) + '/' + episode.slug)
-    context = {'episode': episode}
+    try:
+        games = Game.objects.filter(Q(player1=episode)| Q(player2=episode))[:10]
+    except ObjectDoesNotExist:
+        games = None
+    context = {'episode': episode, 'games':games}
     return render(request, 'episode_detail.html', context)
 
 
