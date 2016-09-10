@@ -1,3 +1,4 @@
 .idea/*
 *.pyc
+static/images/*
 BestEpisodes/BestEpisodes/settings.py
