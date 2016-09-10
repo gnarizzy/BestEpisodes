@@ -10,7 +10,7 @@ class Episode(models.Model):
     title = models.TextField()
     plot = models.TextField()
     image_src = models.URLField()
-    image = models.ImageField()
+    image = models.ImageField(upload_to="/static/images/")
     rating = models.DecimalField(decimal_places=1, max_digits=5, default=1000)
     slug = models.SlugField()
 
@@ -29,6 +29,8 @@ class Game(models.Model):
     player1_post = models.DecimalField(decimal_places=1, max_digits=5)
     player2_pre = models.DecimalField(decimal_places=1, max_digits=5)
     player2_post = models.DecimalField(decimal_places=1, max_digits=5)
+    player1_delta = models.DecimalField(decimal_places=1, max_digits=5)
+    player2_delta = models.DecimalField(decimal_places=1, max_digits=5)
 
     def __str__(self):
         return "Game " + str(self.id) + " "+ self.player1.title + " vs " + self.player2.title
