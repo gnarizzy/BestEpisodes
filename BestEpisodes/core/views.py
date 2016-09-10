@@ -15,7 +15,9 @@ def home(request):
             episode2 = Episode.objects.filter(title=request.POST['second_episode_title'])[0]
             new_rating1, new_rating2 = calculate(episode1.rating, episode2.rating, 1)
             game = Game.objects.create(player1=episode1, player2=episode2, result=1, player1_pre=episode1.rating,
-                                       player1_post=new_rating1, player2_pre=episode2.rating, player2_post=new_rating2)
+                                       player1_post=new_rating1, player2_pre=episode2.rating, player2_post=new_rating2,
+                                       player1_delta = new_rating1 - episode1.rating, player2_delta = new_rating2 -
+                                       episode2.rating)
             episode1.rating, episode2.rating = new_rating1, new_rating2
             episode1.save()
             episode2.save()
@@ -26,7 +28,9 @@ def home(request):
             episode2 = Episode.objects.filter(title=request.POST['second_episode_title'])[0]
             new_rating1, new_rating2 = calculate(episode1.rating, episode2.rating, 0)
             game = Game.objects.create(player1=episode1, player2=episode2, result=0, player1_pre=episode1.rating,
-                                       player1_post=new_rating1, player2_pre=episode2.rating, player2_post=new_rating2)
+                                       player1_post=new_rating1, player2_pre=episode2.rating, player2_post=new_rating2,
+                                       player1_delta = new_rating1 - episode1.rating, player2_delta = new_rating2 -
+                                       episode2.rating)
             episode1.rating, episode2.rating = new_rating1, new_rating2
             episode1.save()
             episode2.save()
@@ -36,7 +40,9 @@ def home(request):
             episode2 = Episode.objects.filter(title=request.POST['second_episode_title'])[0]
             new_rating1, new_rating2 = calculate(episode1.rating, episode2.rating, 0.5)
             game = Game.objects.create(player1=episode1, player2=episode2, result=0.5, player1_pre=episode1.rating,
-                                       player1_post=new_rating1, player2_pre=episode2.rating, player2_post=new_rating2)
+                                       player1_post=new_rating1, player2_pre=episode2.rating, player2_post=new_rating2,
+                                       player1_delta = new_rating1 - episode1.rating, player2_delta = new_rating2 -
+                                       episode2.rating)
             episode1.rating, episode2.rating = new_rating1, new_rating2
             episode1.save()
             episode2.save()
@@ -84,5 +90,16 @@ def get_episodes():
 
     return episode_1, episode_2
 
+#Helper method for updating slugs--only needed for updating existing database as new databases will have slugs upon creation
+def update_slugs():
+    for episode in Episode.objects.all():
+        episode.save()
+
+#Helper method for adding game deltas--only need for updating existing database
+def update_games():
+    for game in Game.objects.all():
+        game.player1_delta = game.player1_post - game.player1_pre
+        game.player2_delta = game.player2_post - game.player2_pre
+        game.save()
 
 
