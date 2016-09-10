@@ -13,7 +13,8 @@
                 </div>
                 <div class = "card-content">
                     <p>
-                        <strong>S{{first_episode.season}}E{{first_episode.episode}}: {{first_episode.title}}</strong>
+                        <strong><a href="/episode/{{first_episode.id}}">S{{first_episode.season}}E{{first_episode.episode}}:
+                            {{first_episode.title}}</a></strong>
                         <br>
                         <br>
                         {{first_episode.plot}}
@@ -40,7 +41,8 @@
                 </div>
                 <div class = "card-content">
                     <p>
-                        <strong>S{{second_episode.season}}E{{second_episode.episode}}: {{second_episode.title}}</strong>
+                        <strong><a href="/episode/{{second_episode.id}}">S{{second_episode.season}}E{{second_episode.episode}}
+                            : {{second_episode.title}}</a></strong>
                         <br>
                         <br>
                         {{second_episode.plot}}
