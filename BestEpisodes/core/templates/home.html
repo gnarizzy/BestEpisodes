@@ -19,8 +19,6 @@
                         {{first_episode.plot}}
                         <br>
                         <br>
-                       <strong>Rating</strong>: {{first_episode.rating}}
-                        <br>
                         <form  action="/" method="post">{% csrf_token %}
                             <input type = "hidden" value="{{first_episode.title}}" name = "first_episode_title">
                             <input type = "hidden" value="{{second_episode.title}}" name = "second_episode_title">
@@ -47,8 +45,6 @@
                         <br>
                         {{second_episode.plot}}
                         <br>
-                        <br>
-                        <strong>Rating</strong>: {{second_episode.rating}}
                         <br>
 
                         <form  action="/" method="post">{% csrf_token %}
