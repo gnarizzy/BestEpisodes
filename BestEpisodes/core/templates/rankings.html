@@ -16,7 +16,7 @@
             <tr>
                 <td>{{ forloop.counter }}</td>
                 <td>S{{episode.season}}E{{episode.episode}}</td>
-                <td><a href="/episode/{{episode.id}}/">{{episode.title}}</a></td>
+                <td><a href="/episode/{{episode.id}}/" target="_blanks">{{episode.title}}</a></td>
                 <td>{{episode.rating}}</td>
             </tr>
             {% endfor %}
