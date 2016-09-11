@@ -74,9 +74,13 @@ def episode_detail(request, episode_id, episode_slug):
         return HttpResponseRedirect('/episode/' + str(episode.id) + '/' + episode.slug)
     try:
         games = Game.objects.filter(Q(player1=episode)| Q(player2=episode)).order_by('-id')[:10]
+        if games[9].player1.id == episode.id:
+            rating_change = episode.rating - games[9].player1_pre
+        else:
+            rating_change = episode.rating - games[9].player2_pre
     except ObjectDoesNotExist:
         games = None
-    context = {'episode': episode, 'games':games}
+    context = {'episode': episode, 'games':games, 'rating_change':rating_change}
     return render(request, 'episode_detail.html', context)
 
 
