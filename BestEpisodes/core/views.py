@@ -86,7 +86,7 @@ def episode_detail(request, episode_id, episode_slug):
 
 #Helper method to generate random episode IDs
 def get_episodes():
-    total_episodes = Episode.objects.all().count()
+    total_episodes = Episode.objects.count()
     episode_1 = random.randint(0, total_episodes - 1)
     episode_2 = random.randint(0, total_episodes - 1)
     while episode_1 == episode_2: #ensures random
