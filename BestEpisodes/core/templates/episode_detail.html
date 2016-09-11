@@ -66,7 +66,8 @@
                                     {% for game in games %}
                                     <tr>
                                         {% if episode.id == game.player2.id %}
-                                            <td>S{{game.player1.season}}E{{game.player1.episode}} {{game.player1.title}}
+                                            <td><a href="/episode/{{game.player1.id}}/" target="_blank">S{{game.player1.season}}E{{game.player1.episode}}
+                                                {{game.player1.title}}</a>
                                              ({{game.player1_pre}})</td>
                                             <td>
                                                 {% if game.result == 0 %}
@@ -92,7 +93,7 @@
                                                 {% endif %}
                                             </td>
                                         {% else %}
-                                            <td>S{{game.player2.season}}E{{game.player2.episode}} {{game.player2.title}}
+                                            <td><a href="/episode/{{game.player2.id}}/" target="_blank">S{{game.player2.season}}E{{game.player2.episode}} {{game.player2.title}}</a>
                                              ({{game.player2_pre}})</td>
                                             <td>
                                                 {% if game.result == 1 %}
