@@ -1,5 +1,20 @@
 {% extends 'base.html' %}
 
+{% block title_block %}
+    {{episode.series}} Season {{episode.season}} Episode {{episode.episode}}: {{episode.title}}
+{% endblock %}
+
+{% block head_block %}
+    <style type="text/css">
+        .rating-increase {
+            color: green
+        }
+        .rating-decrease {
+            color: red
+        }
+    </style>
+{% endblock %}
+
 {% block body_block %}
 
 <div class = "container">
@@ -18,6 +33,15 @@
                         <br>
                         <br>
                        <strong>Rating</strong>: {{episode.rating}}
+                        {% if rating_change > 0 %}
+                        <span class="rating-increase">
+                            <i class="tiny material-icons">arrow_upward</i>(+{{rating_change}})
+                        </span>
+                        {% else %}
+                        <span class="rating-decrease">
+                         <i class="tiny material-icons">arrow_downward</i>({{rating_change}})
+                        </span>
+                        {% endif %}
                         <br>
 
                     </p>
@@ -56,9 +80,15 @@
                                             <td>
                                                 {{game.player2_post}}
                                                 {% if game.player2_delta > 0 %}
-                                                    (+{{game.player2_delta}})
+                                                    <span class="rating-increase">
+                                                        <i class="tiny material-icons">arrow_upward</i>(+{{game.player2_delta}})
+                                                    </span>
+                                                {% elif game.player2_delta < 0%}
+                                                    <span class="rating-decrease">
+                                                        <i class="tiny material-icons">arrow_downward</i>({{game.player2_delta}})
+                                                    </span>
                                                 {% else %}
-                                                    ({{game.player2_delta}})
+                                                        <i class="tiny material-icons">arrow_forward</i>({{game.player2_delta}})
                                                 {% endif %}
                                             </td>
                                         {% else %}
@@ -76,9 +106,15 @@
                                             <td>
                                                 {{game.player1_post}}
                                                 {% if game.player1_delta > 0 %}
-                                                    (+{{game.player1_delta}})
+                                                    <span class="rating-increase">
+                                                        <i class="tiny material-icons">arrow_upward</i>(+{{game.player1_delta}})
+                                                    </span>
+                                                {% elif game.player1_delta < 0 %}
+                                                    <span class="rating-decrease">
+                                                        <i class="tiny material-icons">arrow_downward</i>({{game.player1_delta}})
+                                                    </span>
                                                 {% else %}
-                                                    ({{game.player1_delta}})
+                                                    <i class="tiny material-icons">arrow_forward</i>({{game.player1_delta}}
                                                 {% endif %}
                                             </td>
                                         {% endif %}
