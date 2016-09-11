@@ -73,7 +73,7 @@ def episode_detail(request, episode_id, episode_slug):
     if episode_slug != episode.slug: #Ensures episode always appears with correct slug
         return HttpResponseRedirect('/episode/' + str(episode.id) + '/' + episode.slug)
     try:
-        games = Game.objects.filter(Q(player1=episode)| Q(player2=episode))[-10:]
+        games = Game.objects.filter(Q(player1=episode)| Q(player2=episode)).order_by('-id')[:10]
     except ObjectDoesNotExist:
         games = None
     context = {'episode': episode, 'games':games}
