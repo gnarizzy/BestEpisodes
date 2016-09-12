@@ -75,11 +75,11 @@ def episode_detail(request, episode_id, episode_slug):
     try:
         games = Game.objects.filter(Q(player1=episode)| Q(player2=episode)).order_by('-id')[:10]
 
-        if games.count() == 0:
+        if games.len() == 0:
             rating_change = 0
-        elif games.count() < 10 and games[games.count() - 1].player1.id == episode.id:
+        elif games.len() < 10 and games[games.count() - 1].player1.id == episode.id:
             rating_change = episode.rating - games[games.count() - 1].player_pre
-        elif games.count() < 10 and games.count():
+        elif games.len() < 10 and games.count():
             rating_change = episode.rating - games[games.count() - 1].player2_pre
         elif games[9].player1.id == episode.id:
             rating_change = episode.rating - games[9].player1_pre
