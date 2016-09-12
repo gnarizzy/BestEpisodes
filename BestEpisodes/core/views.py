@@ -74,14 +74,13 @@ def episode_detail(request, episode_id, episode_slug):
         return HttpResponseRedirect('/episode/' + str(episode.id) + '/' + episode.slug)
     try:
         games = Game.objects.filter(Q(player1=episode)| Q(player2=episode)).order_by('-id')[:10]
-        length = games.len()
         try:
             if games[9].player1.id == episode.id:
                 rating_change = episode.rating - games[9].player1_pre
             else:
                 rating_change = episode.rating - games[9].player2_pre
         except IndexError: #Episode has been rated fewer than 10 times
-            rating_change = "N/A"
+            rating_change = None
     except ObjectDoesNotExist:
         games = None
     context = {'episode': episode, 'games':games, 'rating_change':rating_change}
