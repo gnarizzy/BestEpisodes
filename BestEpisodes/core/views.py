@@ -74,7 +74,7 @@ def episode_detail(request, episode_id, episode_slug):
         return HttpResponseRedirect('/episode/' + str(episode.id) + '/' + episode.slug)
     try:
         games = Game.objects.filter(Q(player1=episode)| Q(player2=episode)).order_by('-id')[:10]
-
+        length = games.len()
         try:
             if games[9].player1.id == episode.id:
                 rating_change = episode.rating - games[9].player1_pre
