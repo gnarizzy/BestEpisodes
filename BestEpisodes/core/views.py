@@ -50,7 +50,7 @@ def home(request):
 
     #skipped, redirected, or coming to home page
     episodeid_1, episodeid_2 = get_episodes()
-    first_episode = Episode.objects.all()[episodeid_1]
+    first_episode = Episode.objects.all()[episodeid_1] #is filtering more efficient?
     second_episode = Episode.objects.all()[episodeid_2]
     context = {'first_episode': first_episode, 'second_episode':second_episode}
 
@@ -74,7 +74,11 @@ def episode_detail(request, episode_id, episode_slug):
         return HttpResponseRedirect('/episode/' + str(episode.id) + '/' + episode.slug)
     try:
         games = Game.objects.filter(Q(player1=episode)| Q(player2=episode)).order_by('-id')[:10]
-        if games[9].player1.id == episode.id:
+        if games.count() < 10 and games[games.count() - 1].player1.id == episode.id:
+            rating_change = episode.rating - games[games.count() - 1].player_pre
+        elif games.count() < 10:
+            rating_change = episode.rating - games[games.count() - 1].player2_pre
+        elif games[9].player1.id == episode.id:
             rating_change = episode.rating - games[9].player1_pre
         else:
             rating_change = episode.rating - games[9].player2_pre
