@@ -37,10 +37,11 @@
                         <span class="rating-increase">
                             <i class="tiny material-icons">arrow_upward</i>(+{{rating_change}})
                         </span>
-                        {% else %}
+                        {% elif rating_change %}
                         <span class="rating-decrease">
                          <i class="tiny material-icons">arrow_downward</i>({{rating_change}})
                         </span>
+
                         {% endif %}
                         <br>
 
