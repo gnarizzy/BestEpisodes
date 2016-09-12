@@ -75,16 +75,13 @@ def episode_detail(request, episode_id, episode_slug):
     try:
         games = Game.objects.filter(Q(player1=episode)| Q(player2=episode)).order_by('-id')[:10]
 
-        if games.count() == 0:
-            rating_change = 0
-        elif games.count() < 10 and games[games.count() - 1].player1.id == episode.id:
-            rating_change = episode.rating - games[games.count() - 1].player_pre
-        elif games.count() < 10:
-            rating_change = episode.rating - games[games.count() - 1].player2_pre
-        elif games[9].player1.id == episode.id:
-            rating_change = episode.rating - games[9].player1_pre
+        if games[9]:
+            if games[9].player1.id == episode.id:
+                rating_change = episode.rating - games[9].player1_pre
+            else:
+                rating_change = episode.rating - games[9].player2_pre
         else:
-            rating_change = episode.rating - games[9].player2_pre
+            rating_change = "N/A"
     except ObjectDoesNotExist:
         games = None
     context = {'episode': episode, 'games':games, 'rating_change':rating_change}
