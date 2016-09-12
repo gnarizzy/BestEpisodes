@@ -75,12 +75,12 @@ def episode_detail(request, episode_id, episode_slug):
     try:
         games = Game.objects.filter(Q(player1=episode)| Q(player2=episode)).order_by('-id')[:10]
 
-        if games[9]:
+        try:
             if games[9].player1.id == episode.id:
                 rating_change = episode.rating - games[9].player1_pre
             else:
                 rating_change = episode.rating - games[9].player2_pre
-        else:
+        except IndexError: #Episode has been rated fewer than 10 times
             rating_change = "N/A"
     except ObjectDoesNotExist:
         games = None
