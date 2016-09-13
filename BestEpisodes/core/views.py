@@ -86,6 +86,32 @@ def episode_detail(request, episode_id, episode_slug):
     context = {'episode': episode, 'games':games, 'rating_change':rating_change}
     return render(request, 'episode_detail.html', context)
 
+#Displays list of episodes in season in descending rating order,
+def season_detail(request, season_id):
+    episodes = Episode.objects.filter(season=season_id).order_by('id')
+    if not episodes: #Non-existent season, return to season rankings page
+        return HttpResponseRedirect(request,'/rankings/season/')
+    sum = 0
+    min_rating = episodes[0].rating
+    max_rating = episodes[0].rating
+    min_index = 0
+    max_index = 0
+    for index, episode in enumerate(episodes):
+        if episode.rating < min_rating:
+            min_rating = episode.rating
+            min_index = index
+        elif episode.rating > max_rating:
+            max_rating = episode.rating
+            max_index = index
+        sum += episode.rating
+    average = round(sum/episodes.count(), 1)
+    context = {'episodes':episodes, 'average_rating':average, 'season': season_id, 'best_episode':episodes[max_index],
+               'worst_episode':episodes[min_index]}
+    return render(request, 'season_detail.html', context )
+
+def season_rankings(request):
+    pass
+
 
 #Helper method to generate random episode IDs
 def get_episodes():
