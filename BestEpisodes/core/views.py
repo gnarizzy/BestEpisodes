@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from core.models import Episode, Game
 from core.calculator import calculate
 from django.db.models import Q
@@ -90,7 +90,7 @@ def episode_detail(request, episode_id, episode_slug):
 def season_detail(request, season_id):
     episodes = Episode.objects.filter(season=season_id).order_by('id')
     if not episodes: #Non-existent season, return to season rankings page
-        return HttpResponseRedirect(request,'/rankings/season/')
+        raise Http404()
     sum = 0
     min_rating = episodes[0].rating
     max_rating = episodes[0].rating
@@ -108,10 +108,6 @@ def season_detail(request, season_id):
     context = {'episodes':episodes, 'average_rating':average, 'season': season_id, 'best_episode':episodes[max_index],
                'worst_episode':episodes[min_index]}
     return render(request, 'season_detail.html', context )
-
-def season_rankings(request):
-    pass
-
 
 #Helper method to generate random episode IDs
 def get_episodes():
