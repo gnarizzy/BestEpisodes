@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title_block %} Season {{season}} {% endblock %}
+{% block body_block %}
+
+    <div class = "container">
+        <div class = "row">
+            <div class = "col sm12 m4">
+                <div class = "card ">
+                    <div class = "card-image">
+                        <img src="https://www.nbc.com/sites/nbcunbc/files/files/styles/1280x720/public/images/2016/1/19/MDot-TheOffice-640x360-MP.jpg">
+                    </div>
+                    <div class = "card-content">
+                        <p>
+                            <strong>Season {{season}}</strong>
+                            <br>
+                            <br>
+                            Average rating: {{average_rating}}
+                            <br>
+                            <br>
+                            Best episode: <a href="/episode/{{best_episode.id}}" target="_blank">{{best_episode.title}}</a> ({{best_episode.rating}})
+                            <br>
+                            <br>
+                            Worst episode:  <a href="/episode/{{worst_episode.id}}" target="_blank">{{worst_episode.title}}</a> ({{worst_episode.rating}})
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+            <div class = "col sm12 m8">
+                <div class = "card ">
+                    <div class = "card-content">
+                        <span class = "card-title">Season {{season}} Episodes</span>
+                        <p>
+                                <table class="striped centered">
+                                    <thead>
+                                        <tr>
+                                            <th data-field="Episode">Episode</th>
+                                            <th data-field="Title">Result</th>
+                                            <th data-field="Rating">New rating</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for episode in episodes %}
+                                        <tr>
+                                            <td>{{episode.episode}}</td>
+                                            <td><a href="/episode/{{episode.id}}/" target="_blank">{{episode.title}}</a></td>
+                                                <td> {{episode.rating}}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
