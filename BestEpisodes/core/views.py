@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, Http404
-from core.models import Episode, Game
+from core.models import Episode, Game, SeasonAverage
 from core.calculator import calculate
+from core.download_episodes import download
 from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
 import random
@@ -21,6 +22,7 @@ def home(request):
             episode1.rating, episode2.rating = new_rating1, new_rating2
             episode1.save()
             episode2.save()
+
             return HttpResponseRedirect('/')
 
         elif "episode-2-selected" in request.POST:
@@ -105,9 +107,25 @@ def season_detail(request, season_id):
             max_index = index
         sum += episode.rating
     average = round(sum/episodes.count(), 1)
+    season_average = SeasonAverage.objects.filter(season=season_id)
+    if season_average: #already a cached average for this season
+        season_average[0].average = average
+        season_average[0].save()
+    else:
+        new_season_average = SeasonAverage()
+        new_season_average.season = season_id
+        new_season_average.average = average
+        new_season_average.save()
+
     context = {'episodes':episodes, 'average_rating':average, 'season': season_id, 'best_episode':episodes[max_index],
                'worst_episode':episodes[min_index]}
     return render(request, 'season_detail.html', context )
+
+def season_rankings(request):
+    rankings = SeasonAverage.objects.all().order_by('-average')
+    context = {'rankings':rankings}
+    return render(request, 'season_rankings.html', context)
+
 
 #Helper method to generate random episode IDs
 def get_episodes():
