@@ -34,3 +34,8 @@ class Game(models.Model):
 
     def __str__(self):
         return "Game " + str(self.id) + " "+ self.player1.title + " vs " + self.player2.title
+
+
+class SeasonAverage(models.Model): #A class to cache season average ratings
+    season = models.IntegerField()
+    average = models.DecimalField(decimal_places=1, max_digits=5, default=1000)
