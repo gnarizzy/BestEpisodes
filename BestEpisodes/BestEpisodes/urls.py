@@ -26,5 +26,6 @@ urlpatterns = [
     url(r'^episode/(?P<episode_id>\d+)/(?P<episode_slug>[\w\-]+)/$', core_views.episode_detail, name='episode_detail'),
     url(r'^about/$', TemplateView.as_view(template_name="about.html")),
     url(r'^season/(?P<season_id>\d+)/$', core_views.season_detail, name='season_detail'),
+    url(r'^rankings/season/$', core_views.season_rankings, name='season_rankings'),
 
 ]
