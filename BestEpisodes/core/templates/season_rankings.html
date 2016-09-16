@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+ <div class = "container">
+     <div class = "col sm12 m8">
+         <div class = "card ">
+             <div class = "card-content">
+                 <span class = "card-title center">Season Rankings</span>
+                 <p>
+                    <table class="striped centered">
+                        <thead>
+                            <tr>
+                                <th data-field="Episode">Season</th>
+                                <th data-field="Title">Average rating</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for rating in rankings %}
+                                <tr>
+                                    <td><a href="/season/{{forloop.counter}}/" target="_blank">Season {{ forloop.counter }}</a></td>
+                                    <td>{{rating}}</a></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                 </p>
+             </div>
+
+         </div>
+     </div>
+</div>
+{% endblock %}
