@@ -10,6 +10,7 @@
                     <table class="striped centered">
                         <thead>
                             <tr>
+                                <th data-field="Rank">Rank</th>
                                 <th data-field="Episode">Season</th>
                                 <th data-field="Title">Rating</th>
                             </tr>
@@ -17,6 +18,7 @@
                         <tbody>
                             {% for season, rating in rankings.items %}
                                 <tr>
+                                    <td>{{forloop.counter}}</td>
                                     <td><a href="/season/{{season}}/" target="_blank">Season {{ season }}</a></td>
                                     <td>{{rating}}</a></td>
                                 </tr>
