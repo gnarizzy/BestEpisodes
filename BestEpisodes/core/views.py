@@ -105,9 +105,34 @@ def season_detail(request, season_id):
             max_index = index
         sum += episode.rating
     average = round(sum/episodes.count(), 1)
+
     context = {'episodes':episodes, 'average_rating':average, 'season': season_id, 'best_episode':episodes[max_index],
                'worst_episode':episodes[min_index]}
     return render(request, 'season_detail.html', context )
+
+def season_rankings(request): #TODO REFACTOR
+    num_episodes = {}
+    season_sums = {}
+    ratings = {}
+    rankings = []
+    for episode in Episode.objects.all():
+        if episode.season in num_episodes and episode.season in season_sums:
+            num_episodes[episode.season]+= 1
+            season_sums[episode.season] += episode.rating
+        else:
+            num_episodes[episode.season] = 1
+            season_sums[episode.season] = episode.rating
+
+    for season in season_sums:
+        ratings[season] = season_sums[season]/num_episodes[season] #average rating for each season
+
+    for season in sorted(ratings, key=ratings.__getitem__, reverse=True):
+        rankings.insert(season, ratings[season])
+
+    print(ratings)
+    print(rankings)
+    context = {'rankings':rankings }
+    return render(request, 'season_rankings.html', context)
 
 #Helper method to generate random episode IDs
 def get_episodes():
