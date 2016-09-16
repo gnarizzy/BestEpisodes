@@ -2,26 +2,34 @@
 {%block title_block%} The Office Episode Rankings {% endblock %}
 {%block body_block%}
 <div class = "container">
-    <table class="striped centered">
-        <thead>
-            <tr>
-                <th data-field="rank">Rank</th>
-                <th data-field="id">Episode</th>
-                <th data-field="name">Title</th>
-                <th data-field="rating">Rating</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for episode in episodes_list %}
-            <tr>
-                <td>{{ forloop.counter }}</td>
-                <td>S{{episode.season}}E{{episode.episode}}</td>
-                <td><a href="/episode/{{episode.id}}/" target="_blanks">{{episode.title}}</a></td>
-                <td>{{episode.rating}}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-
-    </table>
+    <div class = "col sm12 m8">
+        <div class = "card ">
+             <div class = "card-content">
+                 <span class = "card-title center">Episode Rankings</span>
+                 <p>
+                    <table class="striped centered">
+                        <thead>
+                            <tr>
+                                <th data-field="rank">Rank</th>
+                                <th data-field="id">Episode</th>
+                                <th data-field="name">Title</th>
+                                <th data-field="rating">Rating</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for episode in episodes_list %}
+                                <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>S{{episode.season}}E{{episode.episode}}</td>
+                                <td><a href="/episode/{{episode.id}}/" target="_blanks">{{episode.title}}</a></td>
+                                <td>{{episode.rating}}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                 </p>
+             </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
