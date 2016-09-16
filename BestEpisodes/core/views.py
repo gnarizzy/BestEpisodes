@@ -127,7 +127,7 @@ def season_rankings(request): #TODO REFACTOR
         ratings[season] = season_sums[season]/num_episodes[season] #average rating for each season
 
     for season in sorted(ratings, key=ratings.__getitem__, reverse=True):
-        rankings.insert(season, ratings[season])
+        rankings.insert(season, round(ratings[season],1))
 
     print(ratings)
     print(rankings)
