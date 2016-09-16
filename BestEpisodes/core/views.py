@@ -132,8 +132,6 @@ def season_rankings(request): #TODO REFACTOR
     for season in sorted_seasons:
         rankings[season] = ratings[season]
 
-    print(ratings)
-    print(rankings)
     context = {'rankings':rankings }
     return render(request, 'season_rankings.html', context)
 
