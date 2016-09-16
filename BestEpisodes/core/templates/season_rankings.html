@@ -15,9 +15,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for rating in rankings %}
+                            {% for season, rating in rankings.items %}
                                 <tr>
-                                    <td><a href="/season/{{forloop.counter}}/" target="_blank">Season {{ forloop.counter }}</a></td>
+                                    <td><a href="/season/{{season}}/" target="_blank">Season {{ season }}</a></td>
                                     <td>{{rating}}</a></td>
                                 </tr>
                             {% endfor %}

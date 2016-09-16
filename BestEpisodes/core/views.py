@@ -4,6 +4,7 @@ from core.models import Episode, Game
 from core.calculator import calculate
 from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
+from collections import OrderedDict
 import random
 
 # Shows two unique, randomly selected episodes with screenshot, title, and description
@@ -114,7 +115,7 @@ def season_rankings(request): #TODO REFACTOR
     num_episodes = {}
     season_sums = {}
     ratings = {}
-    rankings = []
+    rankings = OrderedDict()
     for episode in Episode.objects.all():
         if episode.season in num_episodes and episode.season in season_sums:
             num_episodes[episode.season]+= 1
@@ -124,10 +125,12 @@ def season_rankings(request): #TODO REFACTOR
             season_sums[episode.season] = episode.rating
 
     for season in season_sums:
-        ratings[season] = season_sums[season]/num_episodes[season] #average rating for each season
+        ratings[season] = round(season_sums[season]/num_episodes[season],1)#average rating for each season
 
-    for season in sorted(ratings, key=ratings.__getitem__, reverse=True):
-        rankings.insert(season, round(ratings[season],1))
+    sorted_seasons = sorted(ratings, key=ratings.__getitem__, reverse=True)
+
+    for season in sorted_seasons:
+        rankings[season] = ratings[season]
 
     print(ratings)
     print(rankings)
