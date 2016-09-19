@@ -13,6 +13,7 @@ class Episode(models.Model):
     image = models.ImageField(upload_to="/static/images/")
     rating = models.DecimalField(decimal_places=1, max_digits=5, default=1000)
     slug = models.SlugField()
+    stream_url = models.URLField(null=True, blank=True)
 
     def __str__(self):
         return "Season "+ str(self.season) + " episode " + str(self.episode) + ": " + self.title

@@ -44,6 +44,10 @@
 
                         {% endif %}
                         <br>
+                        <br>
+                        {% if episode.stream_url %}
+                        <a href="{{episode.stream_url}}" target="_blank">Watch this episode</a>
+                        {% endif %}
 
                     </p>
                 </div>

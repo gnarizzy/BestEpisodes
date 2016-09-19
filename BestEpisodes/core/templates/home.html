@@ -20,6 +20,11 @@
                         {{first_episode.plot}}
                         <br>
                         <br>
+                        {% if first_episode.stream_url %}
+                            <a href="{{first_episode.stream_url}}" target="_blank">Watch this episode</a>
+                            <br>
+                            <br>
+                        {% endif %}
                         <form  action="/" method="post">{% csrf_token %}
                             <input type = "hidden" value="{{first_episode.title}}" name = "first_episode_title">
                             <input type = "hidden" value="{{second_episode.title}}" name = "second_episode_title">
@@ -47,6 +52,11 @@
                         {{second_episode.plot}}
                         <br>
                         <br>
+                        {% if second_episode.stream_url %}
+                            <a href="{{second_episode.stream_url}}" target="_blank">Watch this episode</a>
+                            <br>
+                            <br>
+                        {% endif %}
 
                         <form  action="/" method="post">{% csrf_token %}
                             <input type = "hidden" value="{{first_episode.title}}" name = "first_episode_title">
