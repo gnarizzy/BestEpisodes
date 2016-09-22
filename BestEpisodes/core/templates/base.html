@@ -6,13 +6,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
-    <title>{% block title_block %}Rate The Office {% endblock %}</title>
+    <title>{% block title_block %}Rate {{series}} {% endblock %}</title>
     {% block head_block%}{% endblock %}
 </head>
 <body>
     <nav>
         <div class="nav-wrapper deep-red lighten-1">
-          <a href="/" class="brand-logo hide-on-med-and-down">Rate The Office</a>
+          <a href="/" class="brand-logo hide-on-med-and-down">Rate {{series}}</a>
           <ul id="nav" class="right hide-on-med-and-down">
             <li><a href="/episodes">Episodes<i class="material-icons left">view_list</i></a></li>
             <li><a href="/seasons">Seasons<i class="material-icons left">format_list_numbered</i></a></li>
