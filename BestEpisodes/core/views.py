@@ -53,13 +53,13 @@ def home(request):
     episodeid_1, episodeid_2 = get_episodes()
     first_episode = Episode.objects.all()[episodeid_1] #is filtering more efficient?
     second_episode = Episode.objects.all()[episodeid_2]
-    context = {'first_episode': first_episode, 'second_episode':second_episode}
+    context = {'first_episode': first_episode, 'second_episode':second_episode, 'series': first_episode.series}
 
     return render(request, 'home.html', context)
 
 def rankings(request):
     episodes = Episode.objects.all().order_by('-rating')
-    context = {'episodes_list': episodes}
+    context = {'episodes_list': episodes, 'series':episodes[0].series}
     return render(request, 'rankings.html', context)
 
 # URL with no slug, redirect to url with slug
@@ -84,7 +84,7 @@ def episode_detail(request, episode_id, episode_slug):
             rating_change = None
     except ObjectDoesNotExist:
         games = None
-    context = {'episode': episode, 'games':games, 'rating_change':rating_change}
+    context = {'episode': episode, 'games':games, 'rating_change':rating_change, 'series':episode.series}
     return render(request, 'episode_detail.html', context)
 
 #Displays list of episodes in season in descending rating order,
@@ -108,7 +108,7 @@ def season_detail(request, season_id):
     average = round(sum/episodes.count(), 1)
 
     context = {'episodes':episodes, 'average_rating':average, 'season': season_id, 'best_episode':episodes[max_index],
-               'worst_episode':episodes[min_index]}
+               'worst_episode':episodes[min_index], 'series':episodes[0].series}
     return render(request, 'season_detail.html', context )
 
 def season_rankings(request): #TODO REFACTOR
@@ -132,8 +132,13 @@ def season_rankings(request): #TODO REFACTOR
     for season in sorted_seasons:
         rankings[season] = ratings[season]
 
-    context = {'rankings':rankings }
+    context = {'rankings':rankings, 'series': Episode.objects.all()[0].series }
     return render(request, 'season_rankings.html', context)
+
+def about(request):
+    series = Episode.objects.all()[0].series
+    context = {'series':series}
+    return render (request, 'about.html', context)
 
 #Helper method to generate random episode IDs
 def get_episodes():
