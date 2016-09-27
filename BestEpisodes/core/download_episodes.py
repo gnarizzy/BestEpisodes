@@ -2,14 +2,11 @@
 import requests, shutil, sys
 from core.models import Episode
 
-#Series is given via command line argument
-series = sys.argv[0]
-#Fetches number of seasons for series
-response = requests.get('http://www.omdbapi.com/?t=' + series).json()
-seasons = int(response['totalSeasons'])
 
-
-def download():
+def download(series):
+    #Fetches number of seasons for series
+    response = requests.get('http://www.omdbapi.com/?t=' + series).json()
+    seasons = int(response['totalSeasons'])
     print("download has begun")
     for season in range(seasons):
         print("now downloading season " + str(season + 1))
