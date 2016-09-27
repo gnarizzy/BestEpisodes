@@ -1,8 +1,9 @@
 #A script to download all episode data and load it into the database
-import requests, shutil
+import requests, shutil, sys
 from core.models import Episode
 
-series = ''
+#Series is given via command line argument
+series = sys.argv[0]
 #Fetches number of seasons for series
 response = requests.get('http://www.omdbapi.com/?t=' + series).json()
 seasons = int(response['totalSeasons'])
