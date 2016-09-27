@@ -2,9 +2,9 @@
 import requests, shutil
 from core.models import Episode
 
-
+series = ''
 #Fetches number of seasons for series
-response = requests.get('http://www.omdbapi.com/?t=The%20Simpsons').json()
+response = requests.get('http://www.omdbapi.com/?t=' + series).json()
 seasons = int(response['totalSeasons'])
 
 
@@ -12,7 +12,7 @@ def download():
     print("download has begun")
     for season in range(seasons):
         print("now downloading season " + str(season + 1))
-        season_url = 'http://www.omdbapi.com/?t=The%Office&Season=' + str(season + 1)
+        season_url = 'http://www.omdbapi.com/?t=' + series + '&Season=' + str(season + 1)
         season_data = requests.get(season_url).json()
         num_episodes = len(season_data['Episodes'])
 
