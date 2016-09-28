@@ -5,7 +5,7 @@ from core.calculator import calculate
 from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
 from collections import OrderedDict
-import random
+import random, requests, shutil
 
 # Shows two unique, randomly selected episodes with screenshot, title, and description
 def home(request):
@@ -162,4 +162,16 @@ def update_games():
         game.player2_delta = game.player2_post - game.player2_pre
         game.save()
 
+#Helper method for downloading images
+def update_images():
+    for episode in Episode.objects.all():
+        data = requests.get('http://www.omdbapi.com/?t={0}&Season={1}&Episode={2}'.format(episode.series, episode.season, episode.episode)).json()
 
+        if data['Poster'] == "N/A":
+            response = requests.get('http://2.bp.blogspot.com/-Gbn3dT1R9Yo/VPXSJ8lih_I/AAAAAAAALDQ/24wFWdfFvu4/s1600/sorry-image-not-available.png', stream=True)
+        else:
+            response = requests.get(data['Poster'], stream=True)
+        with open('static/images/S'+str(episode.season)+'E'+str(episode.episode)+'.jpg', 'wb') as out_file:
+            shutil.copyfileobj(response.raw, out_file)
+        episode.image = '../static/images/S'+str(episode.season)+'E'+str(episode.episode)+'.jpg'
+        episode.save()
