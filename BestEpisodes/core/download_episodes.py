@@ -2,7 +2,7 @@
 import requests, shutil
 from core.models import Episode
 
-series = ''
+series = 'Psych'
 
 def download():
     #Fetches number of seasons for series
@@ -28,7 +28,10 @@ def download():
                 new_episode.image_src = episode_data['Poster']
                 new_episode.rating = 1000
 
-                response = requests.get(episode_data['Poster'], stream=True)
+                if episode_data['Poster'] == "N/A":
+                    response = requests.get('http://2.bp.blogspot.com/-Gbn3dT1R9Yo/VPXSJ8lih_I/AAAAAAAALDQ/24wFWdfFvu4/s1600/sorry-image-not-available.png', stream=True)
+                else:
+                    response = requests.get(episode_data['Poster'], stream=True)
                 with open('static/images/S'+str(season + 1)+'E'+str(episode + 1)+'.jpg', 'wb') as out_file:
                     shutil.copyfileobj(response.raw, out_file)
                 new_episode.image = '../static/images/S'+str(season + 1)+'E'+str(episode + 1)+'.jpg'
