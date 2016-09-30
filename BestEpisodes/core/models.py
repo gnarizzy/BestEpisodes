@@ -10,7 +10,7 @@ class Episode(models.Model):
     title = models.TextField()
     plot = models.TextField()
     image_src = models.URLField()
-    image = models.ImageField(upload_to="/static/images/")
+    image = models.ImageField(upload_to="/images", blank=True, null=True)
     rating = models.DecimalField(decimal_places=1, max_digits=5, default=1000)
     slug = models.SlugField()
     stream_url = models.URLField(null=True, blank=True)
@@ -35,3 +35,7 @@ class Game(models.Model):
 
     def __str__(self):
         return "Game " + str(self.id) + " "+ self.player1.title + " vs " + self.player2.title
+
+
+class Season(models.model):
+    stream_url = models.URLField(null=True, blank=True)
