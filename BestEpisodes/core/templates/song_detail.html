@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title_block %}
+    {{song.artist}} Season {{song.album}} Episode {{song.song}}: {{song.title}}
+{% endblock %}
+
+{% block head_block %}
+    <style type="text/css">
+        .rating-increase {
+            color: green
+        }
+        .rating-decrease {
+            color: red
+        }
+    </style>
+{% endblock %}
+
+{% block body_block %}
+
+<div class = "container">
+    <div class = "row">
+        <div class = "col sm12 m4">
+            <div class = "card ">
+                <div class = "card-image">
+                    <img src="{% get_static_prefix %}/{{song.image}}">
+                </div>
+                <div class = "card-content">
+                    <p>
+                        <strong>{{song.title}} </strong>
+                        <br>
+                        Album: <a href="/album/{{song.album.id}}" target="_blank">{{song.album}}</a>
+                        <br>
+                        Year: {{song.year}}
+                        <br>
+                        <br>
+                       <strong>Rating</strong>: {{song.rating}}
+                        {% if rating_change > 0 %}
+                        <span class="rating-increase">
+                            <i class="tiny material-icons">arrow_upward</i>(+{{rating_change}})
+                        </span>
+                        {% elif rating_change %}
+                        <span class="rating-decrease">
+                         <i class="tiny material-icons">arrow_downward</i>({{rating_change}})
+                        </span>
+
+                        {% endif %}
+                        <br>
+                        <br>
+                        {% if song.stream_url %}
+                        <a href="{{song.stream_url}}" target="_blank">Listen to this song</a>
+                        {% endif %}
+
+                    </p>
+                </div>
+
+            </div>
+        </div>
+        <div class = "col sm12 m8">
+            <div class = "card ">
+                <div class = "card-content">
+                    <span class = "card-title">Recent Rating History</span>
+                    <p>
+                            <table class="striped centered">
+                                <thead>
+                                    <tr>
+                                        <th data-field="opponent">Opponent</th>
+                                        <th data-field="result">Result</th>
+                                        <th data-field="name">New rating</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for game in games %}
+                                    <tr>
+                                        {% if song.id == game.player2.id %}
+                                            <td><a href="/song/{{game.player1.id}}/" target="_blank">({{game.player1.album}}) {{game.player1.title}}</a>
+                                             ({{game.player1_pre}})</td>
+                                            <td>
+                                                {% if game.result == 0 %}
+                                                    W
+                                                {% elif game.result == 1%}
+                                                    L
+                                                {% else %}
+                                                    D
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {{game.player2_post}}
+                                                {% if game.player2_delta > 0 %}
+                                                    <span class="rating-increase">
+                                                        <i class="tiny material-icons">arrow_upward</i>(+{{game.player2_delta}})
+                                                    </span>
+                                                {% elif game.player2_delta < 0%}
+                                                    <span class="rating-decrease">
+                                                        <i class="tiny material-icons">arrow_downward</i>({{game.player2_delta}})
+                                                    </span>
+                                                {% else %}
+                                                        <i class="tiny material-icons">arrow_forward</i>({{game.player2_delta}})
+                                                {% endif %}
+                                            </td>
+                                        {% else %}
+                                            <td><a href="/song/{{game.player2.id}}/" target="_blank">({{game.player2.album}}) {{game.player2.title}}</a>
+                                             ({{game.player2_pre}})</td>
+                                            <td>
+                                                {% if game.result == 1 %}
+                                                    W
+                                                {% elif game.result == 0%}
+                                                    L
+                                                {% else %}
+                                                    D
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {{game.player1_post}}
+                                                {% if game.player1_delta > 0 %}
+                                                    <span class="rating-increase">
+                                                        <i class="tiny material-icons">arrow_upward</i>(+{{game.player1_delta}})
+                                                    </span>
+                                                {% elif game.player1_delta < 0 %}
+                                                    <span class="rating-decrease">
+                                                        <i class="tiny material-icons">arrow_downward</i>({{game.player1_delta}})
+                                                    </span>
+                                                {% else %}
+                                                    <i class="tiny material-icons">arrow_forward</i>({{game.player1_delta}})
+                                                {% endif %}
+                                            </td>
+                                        {% endif %}
+                                    </tr>
+                                    {% empty %}
+                                        This song has not been rated yet.
+                                    {% endfor %}
+        </tbody>
+
+    </table>
+
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

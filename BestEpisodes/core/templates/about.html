@@ -1,25 +1,25 @@
 {% extends 'base.html' %}
-{% block title_block%}About Rate {{series}}{% endblock %}
+{% block title_block%}About Rate {{artist}}{% endblock %}
 {% block body_block %}
     <div class = "container">
         <div class = "col sm12 m8">
             <div class = "card ">
                 <div class = "card-content">
-                    <span class = "card-title center">About Rate {{series}}</span>
-                        <h4><strong>How does Rate {{series}} work?</strong></h4>
+                    <span class = "card-title center">About Rate {{artist}}</span>
+                        <h4><strong>How does Rate {{artist}} work?</strong></h4>
                             <p>
-                                You are shown two randomly selected episodes, and you choose the better one (or say they're equally good).
+                                You are shown two randomly selected songs, and you choose the better one (or say they're equally good).
                                 Behind the scenes, the site aggregates these selections and uses the <a href = "https://en.wikipedia.org
-                                /wiki/Elo_rating_system" target="_blank">Elo rating system</a> to provide accurate episode rankings. It
+                                /wiki/Elo_rating_system" target="_blank">Elo rating system</a> to provide accurate song rankings. It
                                 was originally created (and modified versions are still used) for ranking chess players, and is now used
                                 in many games today.
                                 <br><br>
-                                Each time you make a choice, the Elo rating algorithm treats it as a "match" between those two episodes.
-                                By aggregating the results for every episode and recalculating the rating after each match, it's possible to
-                                produce a data-driven rankings list that not only tells you which episodes are the best, but also how much
-                                better they are than any other given episode.
+                                Each time you make a choice, the Elo rating algorithm treats it as a "match" between those two songs.
+                                By aggregating the results for every song and recalculating the rating after each match, it's possible to
+                                produce a data-driven rankings list that not only tells you which songs are the best, but also how much
+                                better they are than any other given song.
                             </p>
-                        <h4><strong>Why is this better than the 1 through 10 ratings on IMDB?</strong></h4
+                        <h4><strong>Why is this better than the 1 through 10 ratings?</strong></h4>
                             <p>
                                 It's better primarily because when humans don't have a consistent internal rating system to use when they are asked
                                 to give quantitative ratings. Imagine the best pizza place you've ever been to. Presumably, that pizza is
@@ -30,21 +30,25 @@
                                 <br><br>
                                 We can create more accurate and constantly up-to-date rankings by using implicit qualitative preferences
                                 than explicit quantitative (but actually more arbitrary) ratings. And, the Elo algorithm allows us to
-                                predict the exact probability that any episode will "defeat" any other episode!
+                                predict the exact probability that any song will "defeat" any other song! There are some drawbacks to this approach,
+                                namely that each singular new vote carries the same weight regardless of how many previous votes have been placed, which
+                                suggests perhaps a simple thumbs up/thumbs down percentage may be more accurate.
                             </p>
-                        <h4><strong> Where does the episode information come from?</strong></h4>
+                        <h4><strong>How many times have people voted on Rate Taylor Swift?</strong></h4>
                             <p>
-                                All the data was gathered from the <a href="http://www.omdbapi.com/" target="_blank">Open Movie Database</a>.
+                                As of the time you last refreshed this page, <strong>{{vote_count}} votes</strong> have been cast!
+
+                        <h4><strong> Where does the song information come from?</strong></h4>
+                            <p>
+                                All the data was gathered by hand by Megan White.
                             </p>
-                        <h4><strong> I found an error in the episode data!</strong></h4>
+                        <h4><strong> I found an error in the song data!</strong></h4>
                             <p>
-                                The Open Movie Database unfortunately doesn't always have correct information, and often doesn't have
-                                episode screenshots or is even missing some information. If you notice an error or omission, please
-                                email me at gautam[at]gautamnarula.com and I'll manually correct it!
+                                If you notice an error or omission, please email me at gautam[at]gautamnarula.com and I'll manually correct it!
                             </p>
-                        <h4><strong>Can you do this for other shows?</strong></h4>
+                        <h4><strong>Can you do this for other artists?</strong></h4>
                             <p>
-                                Yup, the code for this site can be reused for any other TV show. If you have any requests, feel free to
+                                Yup, the code for this site can be reused for any other artist. If you have any requests, feel free to
                                 email me!
                             </p>
                         <h4><strong>Who made this?</strong></h4>

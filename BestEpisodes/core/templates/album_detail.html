@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title_block %} {{album.title}} {% endblock %}
+{% block body_block %}
+
+    <div class = "container">
+        <div class = "row">
+            <div class = "col sm12 m4">
+                <div class = "card ">
+                    <div class = "card-image">
+                        <img src="{% get_static_prefix %}/{{album.image}} " %}/>
+                    </div>
+                    <div class = "card-content">
+                        <p>
+                            <strong>{{album.title}}</strong>
+                            <br>
+                            <br>
+                            Average rating: {{average_rating}}
+                            <br>
+                            <br>
+                            Best song: <a href="/song/{{best_song.id}}" target="_blank">{{best_song.title}}</a> ({{best_song.rating}})
+                            <br>
+                            <br>
+                            Worst song:  <a href="/song/{{worst_song.id}}" target="_blank">{{worst_song.title}}</a> ({{worst_song.rating}})
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+            <div class = "col sm12 m8">
+                <div class = "card ">
+                    <div class = "card-content">
+                        <span class = "card-title">{{album.title}} Songs </span>
+                        <p>
+                                <table class="striped centered">
+                                    <thead>
+                                        <tr>
+                                            <th data-field="Title">Title</th>
+                                            <th data-field="Rating">Rating</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for song in songs %}
+                                        <tr>
+                                            <td><a href="/song/{{song.id}}/" target="_blank">{{song.title}}</a></td>
+                                            <td> {{song.rating}}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title_block %} {{artist}} Album Rankings {% endblock %}
+{% block body_block %}
+ <div class = "container">
+     <div class = "col sm12 m8">
+         <div class = "card ">
+             <div class = "card-content">
+                 <span class = "card-title center">Album Rankings</span>
+                 <p>
+                    <table class="striped centered">
+                        <thead>
+                            <tr>
+                                <th data-field="Rank">Rank</th>
+                                <th data-field="Episode">Album</th>
+                                <th data-field="Title">Rating</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for album, rating in rankings.items %}
+                                <tr>
+                                    <td>{{forloop.counter}}</td>
+                                    <td><a href="/album/{{album.id}}/" target="_blank">{{ album}}</a></td>
+                                    <td>{{rating}}</a></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                 </p>
+             </div>
+
+         </div>
+     </div>
+</div>
+{% endblock %}

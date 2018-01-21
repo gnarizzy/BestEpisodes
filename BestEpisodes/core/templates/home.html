@@ -1,35 +1,32 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block body_block %}
 
 <div class = "container">
-    <h1>Which episode is better?</h1>
+    <h1>Which song is better?</h1>
 
     <div class = "row">
         <div class = "col sm12 m4">
             <div class = "card ">
                 <div class = "card-image">
-                    <img src="{{first_episode.image}}">
+                    <img src="{% get_static_prefix %}/{{first_song.image}}">
                 </div>
                 <div class = "card-content">
                     <p>
-                        <strong><a href="/episode/{{first_episode.id}}" target="_blank">S{{first_episode.season}}E{{first_episode.episode}}:
-                            {{first_episode.title}}</a></strong>
+                        <strong><a href="/song/{{first_song.id}}" target="_blank">{{first_song.title}}
+                        </a></strong>
                         <br>
+
                         <br>
-                        {{first_episode.plot}}
-                        <br>
-                        <br>
-                        {% if first_episode.stream_url %}
-                            <a href="{{first_episode.stream_url}}" target="_blank">Watch this episode</a>
+                        {% if first_song.stream_url %}
+                            <a href="{{first_song.stream_url}}" target="_blank">Listen to this song</a>
                             <br>
                             <br>
                         {% endif %}
                         <form  action="/" method="post">{% csrf_token %}
-                            <input type = "hidden" value="{{first_episode.title}}" name = "first_episode_title">
-                            <input type = "hidden" value="{{second_episode.title}}" name = "second_episode_title">
-                            <button class="btn waves-effect waves-dark green"  type="submit" name="episode-1-selected">S{{first_episode.season}}
-                                E{{first_episode.episode}}
+                            <input type = "hidden" value="{{first_song.title}}" name = "first_song_title">
+                            <input type = "hidden" value="{{second_song.title}}" name = "second_song_title">
+                            <button class="btn waves-effect waves-dark green"  type="submit" name="song-1-selected">
                                 <i class="material-icons right">thumb_up</i>
                             </button>
 
@@ -42,28 +39,27 @@
         <div class = "col sm12 m4">
             <div class = "card ">
                 <div class = "card-image">
-                    <img src="{{second_episode.image}}">
+                    <img src="{% get_static_prefix %}/{{second_song.image}}">
                 </div>
                 <div class = "card-content">
                     <p>
-                        <strong><a href="/episode/{{second_episode.id}}" target="_blank">S{{second_episode.season}}E{{second_episode.episode}}: {{second_episode.title}}</a></strong>
+                        <strong><a href="/song/{{second_song.id}}" target="_blank">{{second_song.title}}</a></strong>
                         <br>
                         <br>
-                        {{second_episode.plot}}
+                        {{second_song.plot}}
                         <br>
                         <br>
-                        {% if second_episode.stream_url %}
-                            <a href="{{second_episode.stream_url}}" target="_blank">Watch this episode</a>
+                        {% if second_song.stream_url %}
+                            <a href="{{second_song.stream_url}}" target="_blank">Listen to this song</a>
                             <br>
                             <br>
                         {% endif %}
 
                         <form  action="/" method="post">{% csrf_token %}
-                            <input type = "hidden" value="{{first_episode.title}}" name = "first_episode_title">
-                            <input type = "hidden" value="{{second_episode.title}}" name = "second_episode_title">
+                            <input type = "hidden" value="{{first_song.title}}" name = "first_song_title">
+                            <input type = "hidden" value="{{second_song.title}}" name = "second_song_title">
                             <button class="btn waves-effect waves-dark green" type="submit"
-                                    name="episode-2-selected">S{{second_episode.season}}
-                                E{{second_episode.episode}}
+                                    name="song-2-selected">
                                 <i class="material-icons right">thumb_up</i>
                             </button>
 
@@ -75,8 +71,8 @@
     </div>
     <div class = "row">
         <form  action="/" method="post">{% csrf_token %}
-            <input type = "hidden" value="{{first_episode.title}}" name = "first_episode_title">
-            <input type = "hidden" value="{{second_episode.title}}" name = "second_episode_title">
+            <input type = "hidden" value="{{first_song.title}}" name = "first_song_title">
+            <input type = "hidden" value="{{second_song.title}}" name = "second_song_title">
             <button class="btn waves-effect waves-dark blue" type="submit" name="draw">Tie
                                 <i class="material-icons right">thumb_up_thumb_down</i>
             </button>
