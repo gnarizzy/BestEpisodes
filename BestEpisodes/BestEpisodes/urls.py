@@ -20,11 +20,11 @@ from core import views as core_views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', core_views.home, name='home'),
-    url(r'^episodes/$', core_views.rankings, name='rankings'),
-    url(r'^episode/(?P<episode_id>\d+)/$', core_views.episode_detail_no_slug, name='episode_detail_no_slug'),
-    url(r'^episode/(?P<episode_id>\d+)/(?P<episode_slug>[\w\-]+)/$', core_views.episode_detail, name='episode_detail'),
+    url(r'^songs/$', core_views.rankings, name='rankings'),
+    url(r'^song/(?P<song_id>\d+)/$', core_views.song_detail_no_slug, name='song_detail_no_slug'),
+    url(r'^song/(?P<song_id>\d+)/(?P<song_slug>[\w\-]+)/$', core_views.song_detail, name='song_detail'),
     url(r'^about/$',core_views.about, name='about'),
-    url(r'^season/(?P<season_id>\d+)/$', core_views.season_detail, name='season_detail'),
-    url(r'^seasons/$', core_views.season_rankings, name='season_rankings'),
+    url(r'^album/(?P<album_id>\d+)/$', core_views.album_detail, name='album_detail'),
+    url(r'^albums/$', core_views.album_rankings, name='album_rankings'),
 
 ]
