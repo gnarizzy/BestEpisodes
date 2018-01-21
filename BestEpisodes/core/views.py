@@ -1,159 +1,164 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, Http404
-from core.models import Episode, Game
+from core.models import Song, Album, Game
 from core.calculator import calculate
 from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
 from collections import OrderedDict
 import random, requests, shutil
+from core.download_songs import load
 
-# Shows two unique, randomly selected episodes with screenshot, title, and description
+# Shows two unique, randomly selected songs with screenshot, title, and description
 def home(request):
+    #load()
+    #update_images()
     #User made a selection
     if request.method == 'POST': #TODO not very DRY. refactor to get rid of repetitive code
-        if "episode-1-selected" in request.POST:
-            episode1 = Episode.objects.filter(title=request.POST['first_episode_title'])[0]
-            episode2 = Episode.objects.filter(title=request.POST['second_episode_title'])[0]
-            new_rating1, new_rating2 = calculate(episode1.rating, episode2.rating, 1)
-            game = Game.objects.create(player1=episode1, player2=episode2, result=1, player1_pre=episode1.rating,
-                                       player1_post=new_rating1, player2_pre=episode2.rating, player2_post=new_rating2,
-                                       player1_delta = new_rating1 - episode1.rating, player2_delta = new_rating2 -
-                                       episode2.rating)
-            episode1.rating, episode2.rating = new_rating1, new_rating2
-            episode1.save()
-            episode2.save()
+        if "song-1-selected" in request.POST:
+            song1 = Song.objects.filter(title=request.POST['first_song_title'])[0]
+            song2 = Song.objects.filter(title=request.POST['second_song_title'])[0]
+            new_rating1, new_rating2 = calculate(song1.rating, song2.rating, 1)
+            game = Game.objects.create(player1=song1, player2=song2, result=1, player1_pre=song1.rating,
+                                       player1_post=new_rating1, player2_pre=song2.rating, player2_post=new_rating2,
+                                       player1_delta = new_rating1 - song1.rating, player2_delta = new_rating2 -
+                                       song2.rating)
+            song1.rating, song2.rating = new_rating1, new_rating2
+            song1.save()
+            song2.save()
             return HttpResponseRedirect('/')
 
-        elif "episode-2-selected" in request.POST:
-            episode1 = Episode.objects.filter(title=request.POST['first_episode_title'])[0]
-            episode2 = Episode.objects.filter(title=request.POST['second_episode_title'])[0]
-            new_rating1, new_rating2 = calculate(episode1.rating, episode2.rating, 0)
-            game = Game.objects.create(player1=episode1, player2=episode2, result=0, player1_pre=episode1.rating,
-                                       player1_post=new_rating1, player2_pre=episode2.rating, player2_post=new_rating2,
-                                       player1_delta = new_rating1 - episode1.rating, player2_delta = new_rating2 -
-                                       episode2.rating)
-            episode1.rating, episode2.rating = new_rating1, new_rating2
-            episode1.save()
-            episode2.save()
+        elif "song-2-selected" in request.POST:
+            song1 = Song.objects.filter(title=request.POST['first_song_title'])[0]
+            song2 = Song.objects.filter(title=request.POST['second_song_title'])[0]
+            new_rating1, new_rating2 = calculate(song1.rating, song2.rating, 0)
+            Game.objects.create(player1=song1, player2=song2, result=0, player1_pre=song1.rating,
+                                       player1_post=new_rating1, player2_pre=song2.rating, player2_post=new_rating2,
+                                       player1_delta = new_rating1 - song1.rating, player2_delta = new_rating2 -
+                                       song2.rating)
+            song1.rating, song2.rating = new_rating1, new_rating2
+            song1.save()
+            song2.save()
             return HttpResponseRedirect('/')
         elif "draw" in request.POST:
-            episode1 = Episode.objects.filter(title=request.POST['first_episode_title'])[0]
-            episode2 = Episode.objects.filter(title=request.POST['second_episode_title'])[0]
-            new_rating1, new_rating2 = calculate(episode1.rating, episode2.rating, 0.5)
-            game = Game.objects.create(player1=episode1, player2=episode2, result=0.5, player1_pre=episode1.rating,
-                                       player1_post=new_rating1, player2_pre=episode2.rating, player2_post=new_rating2,
-                                       player1_delta = new_rating1 - episode1.rating, player2_delta = new_rating2 -
-                                       episode2.rating)
-            episode1.rating, episode2.rating = new_rating1, new_rating2
-            episode1.save()
-            episode2.save()
+            song1 = Song.objects.filter(title=request.POST['first_song_title'])[0]
+            song2 = Song.objects.filter(title=request.POST['second_song_title'])[0]
+            new_rating1, new_rating2 = calculate(song1.rating, song2.rating, 0.5)
+            game = Game.objects.create(player1=song1, player2=song2, result=0.5, player1_pre=song1.rating,
+                                       player1_post=new_rating1, player2_pre=song2.rating, player2_post=new_rating2,
+                                       player1_delta = new_rating1 - song1.rating, player2_delta = new_rating2 -
+                                       song2.rating)
+            song1.rating, song2.rating = new_rating1, new_rating2
+            song1.save()
+            song2.save()
             return HttpResponseRedirect('/')
 
     #skipped, redirected, or coming to home page
-    episodeid_1, episodeid_2 = get_episodes()
-    first_episode = Episode.objects.all()[episodeid_1] #is filtering more efficient?
-    second_episode = Episode.objects.all()[episodeid_2]
-    context = {'first_episode': first_episode, 'second_episode':second_episode, 'series': first_episode.series}
+    songid_1, songid_2 = get_songs()
+    first_song = Song.objects.all()[songid_1] #is filtering more efficient?
+    second_song = Song.objects.all()[songid_2]
+    context = {'first_song': first_song, 'second_song':second_song, 'artist': first_song.artist}
 
     return render(request, 'home.html', context)
 
 def rankings(request):
-    episodes = Episode.objects.all().order_by('-rating')
-    context = {'episodes_list': episodes, 'series':episodes[0].series}
+    songs = Song.objects.all().order_by('-rating')
+    context = {'songs_list': songs, 'artist':songs[0].artist}
     return render(request, 'rankings.html', context)
 
 # URL with no slug, redirect to url with slug
-def episode_detail_no_slug(request, episode_id):
-    episode = get_object_or_404(Episode, pk=episode_id)
-    return HttpResponseRedirect('/episode/' + str(episode.id) + '/' + episode.slug)
+def song_detail_no_slug(request, song_id):
+    song = get_object_or_404(Song, pk=song_id)
+    return HttpResponseRedirect('/song/' + str(song.id) + '/' + song.slug)
 
 
 # Displays the requested listing along with info about listing item, or 404 page
-def episode_detail(request, episode_id, episode_slug):
-    episode = get_object_or_404(Episode, pk=episode_id)
-    if episode_slug != episode.slug: #Ensures episode always appears with correct slug
-        return HttpResponseRedirect('/episode/' + str(episode.id) + '/' + episode.slug)
+def song_detail(request, song_id, song_slug):
+    song = get_object_or_404(Song, pk=song_id)
+    if song_slug != song.slug: #Ensures song always appears with correct slug
+        return HttpResponseRedirect('/song/' + str(song.id) + '/' + song.slug)
     try:
-        games = Game.objects.filter(Q(player1=episode)| Q(player2=episode)).order_by('-id')[:10]
+        games = Game.objects.filter(Q(player1=song)| Q(player2=song)).order_by('-id')[:10]
         try:
-            if games[9].player1.id == episode.id:
-                rating_change = episode.rating - games[9].player1_pre
+            if games[9].player1.id == song.id:
+                rating_change = song.rating - games[9].player1_pre
             else:
-                rating_change = episode.rating - games[9].player2_pre
+                rating_change = song.rating - games[9].player2_pre
         except IndexError: #Episode has been rated fewer than 10 times
             rating_change = None
     except ObjectDoesNotExist:
         games = None
-    context = {'episode': episode, 'games':games, 'rating_change':rating_change, 'series':episode.series}
-    return render(request, 'episode_detail.html', context)
+    context = {'song': song, 'games':games, 'rating_change':rating_change, 'artist':song.artist}
+    return render(request, 'song_detail.html', context)
 
-#Displays list of episodes in season in descending rating order,
-def season_detail(request, season_id):
-    episodes = Episode.objects.filter(season=season_id).order_by('id')
-    if not episodes: #Non-existent season, return to season rankings page
+#Displays list of songs in album in descending rating order,
+def album_detail(request, album_id):
+    songs = Song.objects.filter(album=album_id).order_by('id')
+    album = get_object_or_404(Album, id=album_id)
+    if not songs: #Non-existent album, return to album rankings page
         raise Http404()
     sum = 0
-    min_rating = episodes[0].rating
-    max_rating = episodes[0].rating
+    min_rating = songs[0].rating
+    max_rating = songs[0].rating
     min_index = 0
     max_index = 0
-    for index, episode in enumerate(episodes):
-        if episode.rating < min_rating:
-            min_rating = episode.rating
+    for index, song in enumerate(songs):
+        if song.rating < min_rating:
+            min_rating = song.rating
             min_index = index
-        elif episode.rating > max_rating:
-            max_rating = episode.rating
+        elif song.rating > max_rating:
+            max_rating = song.rating
             max_index = index
-        sum += episode.rating
-    average = round(sum/episodes.count(), 1)
+        sum += song.rating
+    average = round(sum/songs.count(), 1)
 
-    context = {'episodes':episodes, 'average_rating':average, 'season': season_id, 'best_episode':episodes[max_index],
-               'worst_episode':episodes[min_index], 'series':episodes[0].series}
-    return render(request, 'season_detail.html', context )
+    context = {'songs':songs, 'average_rating':average, 'album': album, 'best_song':songs[max_index],
+               'worst_song':songs[min_index], 'artist':songs[0].artist}
+    return render(request, 'album_detail.html', context )
 
-def season_rankings(request): #TODO REFACTOR
-    num_episodes = {}
-    season_sums = {}
+def album_rankings(request): #TODO REFACTOR
+    num_songs = {}
+    album_sums = {}
     ratings = {}
     rankings = OrderedDict()
-    for episode in Episode.objects.all():
-        if episode.season in num_episodes and episode.season in season_sums:
-            num_episodes[episode.season]+= 1
-            season_sums[episode.season] += episode.rating
+    for song in Song.objects.all():
+        if song.album in num_songs and song.album in album_sums:
+            num_songs[song.album]+= 1
+            album_sums[song.album] += song.rating
         else:
-            num_episodes[episode.season] = 1
-            season_sums[episode.season] = episode.rating
+            num_songs[song.album] = 1
+            album_sums[song.album] = song.rating
 
-    for season in season_sums:
-        ratings[season] = round(season_sums[season]/num_episodes[season],1)#average rating for each season
+    for album in album_sums:
+        ratings[album] = round(album_sums[album]/num_songs[album],1)#average rating for each album
 
-    sorted_seasons = sorted(ratings, key=ratings.__getitem__, reverse=True)
+    sorted_albums = sorted(ratings, key=ratings.__getitem__, reverse=True)
 
-    for season in sorted_seasons:
-        rankings[season] = ratings[season]
+    for album in sorted_albums:
+        rankings[album] = ratings[album]
 
-    context = {'rankings':rankings, 'series': Episode.objects.all()[0].series }
-    return render(request, 'season_rankings.html', context)
+    context = {'rankings':rankings, 'artist': Song.objects.all()[0].artist }
+    return render(request, 'album_rankings.html', context)
 
 def about(request):
-    series = Episode.objects.all()[0].series
-    context = {'series':series}
-    return render (request, 'about.html', context)
+    artist = Song.objects.all()[0].artist
+    vote_count = Game.objects.all().count()
+    context = {'artist':artist,'vote_count': vote_count}
+    return render(request, 'about.html', context)
 
-#Helper method to generate random episode IDs
-def get_episodes():
-    total_episodes = Episode.objects.count()
-    episode_1 = random.randint(0, total_episodes - 1)
-    episode_2 = random.randint(0, total_episodes - 1)
-    while episode_1 == episode_2: #ensures random
-        episode_2 = random.randint(0, total_episodes - 1)
+#Helper method to generate random song IDs
+def get_songs():
+    total_songs = Song.objects.count()
+    song_1 = random.randint(0, total_songs - 1)
+    song_2 = random.randint(0, total_songs - 1)
+    while song_1 == song_2: #ensures random
+        song_2 = random.randint(0, total_songs - 1)
 
-    return episode_1, episode_2
+    return song_1, song_2
 
 #Helper method for updating slugs--only needed for updating existing database as new databases will have slugs upon creation
 def update_slugs():
-    for episode in Episode.objects.all():
-        episode.save()
+    for song in Song.objects.all():
+        song.save()
 
 #Helper method for adding game deltas--only need for updating existing database
 def update_games():
@@ -164,14 +169,26 @@ def update_games():
 
 #Helper method for downloading images
 def update_images():
-    for episode in Episode.objects.all():
-        data = requests.get('http://www.omdbapi.com/?t={0}&Season={1}&Episode={2}'.format(episode.series, episode.season, episode.episode)).json()
-
-        if data['Poster'] == "N/A":
-            response = requests.get('http://2.bp.blogspot.com/-Gbn3dT1R9Yo/VPXSJ8lih_I/AAAAAAAALDQ/24wFWdfFvu4/s1600/sorry-image-not-available.png', stream=True)
+    for song in Song.objects.all():
+        if '.jpg' in song.image_src or '.jpeg' in song.image_src:
+            extension = '.jpg'
         else:
-            response = requests.get(data['Poster'], stream=True)
-        with open('static/images/S'+str(episode.season)+'E'+str(episode.episode)+'.jpg', 'wb') as out_file:
+            extension = '.png'
+        response = requests.get(song.image_src, stream=True)
+        with open('static/images/song/{0}{1}'.format(song.title.replace('?',''), extension), 'wb') as out_file:
             shutil.copyfileobj(response.raw, out_file)
-        episode.image = '../static/images/S'+str(episode.season)+'E'+str(episode.episode)+'.jpg'
-        episode.save()
+            out_file.close()
+        song.image = '../images/song/{0}{1}'.format(song.title.replace('?', ''), extension)
+        song.save()
+
+    for album in Album.objects.all():
+        if '.jpg' in album.image_src or '.jpeg' in album.image_src:
+            extension = '.jpg'
+        else:
+            extension = '.png'
+        response = requests.get(album.image_src, stream=True)
+        with open('static/images/album/{0}{1}'.format(album.title.replace('?', ''), extension), 'wb') as out_file:
+            shutil.copyfileobj(response.raw, out_file)
+            out_file.close()
+        album.image = '../images/album/{0}{1}'.format(album.title.replace('?', ''), extension)
+        album.save()
