@@ -1,7 +1,7 @@
 # BestEpisodes
 Allows users to rank TV episodes in head-to-head comparisons, and uses the Elo algorithm to compute the best episodes. 
 
-Currently live at www.ratetheoffice.com and www.ratepsych.com.
+Currently used to power www.ratetheoffice.com, www.ratetaysway.pythonanywhere.com (with [Megan White](https://GitHub.com/MeganWhite)), and previously www.ratepsych.com.
 
 **How it works**
 
