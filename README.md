@@ -1,6 +1,8 @@
 # BestEpisodes
 Allows users to rank TV episodes in head-to-head comparisons, and uses the Elo algorithm to compute the best episodes. 
 
+Currently live at www.ratetheoffice.com and www.ratepsych.com.
+
 **How it works**
 
 Users are shown two episodes of a tv show, and choose which one is better (or a tie if they're equally good, or "skip" if they don't know). This event is treated as a head-to-head match (a la chess) and elo ratings are computed based on these head to 
